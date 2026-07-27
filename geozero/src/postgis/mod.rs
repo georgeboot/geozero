@@ -117,11 +117,14 @@ pub mod sqlx {}
 /// ```
 ///
 /// A column can also be read into, and written from, any geometry type supported by GeoZero by
-/// wrapping it in [`wkb::Decode`](crate::wkb::Decode) and [`wkb::Encode`](crate::wkb::Encode):
+/// wrapping it in [`wkb::Decode`](crate::wkb::Decode) and [`wkb::Encode`](crate::wkb::Encode).
+/// Below that is a postgis_diesel geometry, but `geo_types::Geometry<f64>` and the other supported
+/// geometry types work the same way:
 ///
 /// ```
 /// use diesel::prelude::*;
 /// use geozero::wkb;
+/// use postgis_diesel::types::{GeometryContainer, Point};
 ///
 /// # diesel::table! {
 /// #     use diesel::sql_types::*;
@@ -137,16 +140,19 @@ pub mod sqlx {}
 /// #[diesel(table_name = geometries)]
 /// pub struct Geom {
 ///     pub name: String,
-///     pub geom: wkb::Decode<geo_types::Geometry<f64>>,
+///     pub geom: wkb::Decode<GeometryContainer<Point>>,
 /// }
 ///
 /// #[derive(Insertable, Debug)]
 /// #[diesel(table_name = geometries)]
 /// pub struct NewGeom {
 ///     pub name: String,
-///     pub geom: wkb::Encode<geo_types::Geometry<f64>>,
+///     pub geom: wkb::Encode<GeometryContainer<Point>>,
 /// }
 /// ```
+///
+/// A `Nullable<Geometry>` column needs an `Option<wkb::Decode<_>>`; the `geometry` field of
+/// [`wkb::Decode`](crate::wkb::Decode) is always populated when decoding through Diesel.
 ///
 /// The postgis_diesel geometry types implement [`GeozeroGeometry`](crate::GeozeroGeometry), so they
 /// convert to any GeoZero-supported format:
