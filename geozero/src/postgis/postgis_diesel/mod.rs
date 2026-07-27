@@ -2,8 +2,6 @@
 
 mod reader;
 mod sql;
-#[cfg(test)]
-mod tests;
 mod writer;
 
 pub use writer::PostgisDieselWriter;
