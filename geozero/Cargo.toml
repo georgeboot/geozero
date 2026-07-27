@@ -128,6 +128,11 @@ path = "tests/postgis.rs"
 required-features = ["with-wkb", "with-wkt", "with-geo"]
 
 [[test]]
+name = "postgis_diesel"
+path = "tests/postgis_diesel.rs"
+required-features = ["with-postgis-diesel", "with-wkt"]
+
+[[test]]
 name = "gpx"
 path = "tests/gpx.rs"
 required-features = ["with-gpx", "with-wkt", "with-geojson"]
