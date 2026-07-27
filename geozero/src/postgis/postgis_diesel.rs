@@ -11,13 +11,6 @@ use postgis_diesel::types::{
 };
 use std::io::{Read, Write as _};
 
-// ---------------------------------------------------------------------------
-// SQL types (kept for backwards compatibility)
-// ---------------------------------------------------------------------------
-
-use crate::postgis::postgis_diesel::sql_types::{Geography, Geometry};
-use crate::wkb::Ewkb;
-
 pub mod sql_types {
     use diesel::query_builder::QueryId;
     use diesel::sql_types::SqlType;
